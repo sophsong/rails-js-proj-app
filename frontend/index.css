@@ -1,0 +1,44 @@
+/* .players {
+  height: 50px;
+  width: 30px;
+  background-color: red;
+} */
+
+/* body {
+  display: grid;
+} */
+.grid-container {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  column-gap: 50px;
+  height: 300px;
+  width: 400px;
+  grid-template-areas:
+      "teams players";
+}
+
+h1 {
+  height: 40px;
+  background: #ADD8E6;
+  font-family: "Verdana"
+}
+
+.grid-container > div {
+  background: #eee;
+}
+
+p:hover{
+  cursor:pointer;
+  color:red;
+}
+/* .players {
+align: center;
+padding: 1rem;
+width: 15rem;
+height: 25rem;
+display: inline-grid;
+margin: 1rem 2rem;
+box-shadow: 3px 4px #87CEFA;
+background-color: #F0F8FF;
+color: #000080;
+} */
