@@ -1,24 +1,27 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### About
 
-Things you may want to cover:
+Welcome to Girls Who Ball, an interactive place for girls to learn about football!
 
-* Ruby version
+#### How to Navigate
 
-* System dependencies
+There is some built in data points, but essentially, users are supposed to add players to a team, and do so with relevant player information.
 
-* Configuration
+#### Installation Instructions
 
-* Database creation
+To use this program, go to your terminal and enter the following.
 
-* Database initialization
+bundle install
+rails db:migrate
+rails db:seed
 
-* How to run the test suite
+That should load the backend and data. Following,
 
-* Services (job queues, cache servers, search engines, etc.)
+rails s (runs the rails server)
 
-* Deployment instructions
+Lastly, navigate to the frontend folder:
 
-* ...
+open index.html (opens the index or view-type page which you can interact with)
+
+In order to complete the last two steps, make sure you have two tabs open in your terminal.
