@@ -6,6 +6,12 @@ const viewAllTeams = document.querySelector("#view-sequences")
 const teamsDiv = document.querySelector(".teams-div")
 const tryDiv = document.querySelector(".try")
 const newTeamForm = document.createElement("form")
+const h1 = document.querySelector('#header')
+let returnButton = document.createElement("button")
+
+// console.log(h1)
+
+
 
 
 //#1 Deliverable
@@ -16,18 +22,26 @@ function Team(name, location, ranking){
   this.ranking = ranking
 } //end of function
 
-Team.prototype.welcomeMessage = function(indTeam) {
-    return `Welcome to the ${this.name}'s homepage'!`
-} //end of function
 
-Team.prototype.renderTeam = function(indTeam){
+
+Team.prototype.renderTeamName = function(indTeam){
   const indTeamName = document.createElement("p")
   indTeamName.innerHTML = indTeam.name
   return indTeamName
+} //end of function
+
+Team.prototype.renderTeamLocation = function(indTeam){
   const indTeamLocation = document.createElement("p")
   indTeamLocation.innerHTML = indTeam.location
   return indTeamLocation
 } //end of function
+
+Team.prototype.renderTeamRanking = function(indTeam){
+  const indTeamRanking = document.createElement("p")
+  indTeamRanking.innerHTML = indTeam.ranking
+  return indTeamRanking
+} //end of function
+
 // end of #1 Deliverable //
 
 
@@ -56,7 +70,7 @@ function createNewPlayer(e){
     return res.json()
   })
   .then(function(res){
-    console.log(res)
+    // console.log(res) //for my own testing purposes
     let currentPlayer = document.createElement("p");
     currentPlayer.dataset.name = res["name"];
     currentPlayer.dataset.age = res["age"];
@@ -87,6 +101,7 @@ function indexViewAllTeams(){
     teams.forEach(function(teamObj){
       const allTeams = document.createElement('div')
       const showTeam = document.createElement('button')
+      showTeam.classList.add("nav-button")
       showTeam.innerHTML = teamObj.name
       allTeams.appendChild(showTeam)
       tryDiv.appendChild(allTeams)
@@ -100,7 +115,6 @@ function indexViewAllTeams(){
  // end of #2 Deliverable //
 
 
-
 //#3 Deliverable: Show Page
 function showOneTeam(teamObj){
   fetch(`http://localhost:3000/teams/${teamObj.id}`)
@@ -111,15 +125,16 @@ function showOneTeam(teamObj){
     team1.name = indTeam.name
     team1.location = indTeam.location
     team1.ranking = indTeam.ranking
-    team1.welcomeMessage()
-    console.log(team1)
-    //welcome Message console logs the welcome message
+
+
     const teamCard = document.createElement("div")
     // teamCard.appendChild(Team)
     //   const indTeamName = document.createElement("p")
     //   indTeamName.innerHTML = indTeam.name
-      teamCard.appendChild(team1.renderTeam(indTeam))
-      // teamCard.appendChild(team1.welcomeMessage(indTeam))
+
+      teamCard.appendChild(team1.renderTeamName(indTeam))
+      teamCard.appendChild(team1.renderTeamLocation(indTeam))
+        teamCard.appendChild(team1.renderTeamRanking(indTeam))
     //   const indTeamLocation = document.createElement("p")
     //   indTeamLocation.innerHTML = indTeam.location
     //   teamCard.appendChild(indTeamLocation)
@@ -128,6 +143,7 @@ function showOneTeam(teamObj){
     //   teamCard.appendChild(indTeamRanking)
       const playersForTeamButton = document.createElement("button")
       playersForTeamButton.innerHTML = "View Players"
+      playersForTeamButton.classList.add("nav-button")
       teamCard.appendChild(playersForTeamButton)
       playersForTeamButton.addEventListener("click", function(){
         teamCard.innerHTML = ""
@@ -142,8 +158,26 @@ function clearTryDiv(){
   tryDiv.innerHTML =""
 }
 
-// end of #3 Deliverable//
 
+function returnToHomePage(){
+  returnButton.addEventListener("click", function(){
+    clearWindowContent();
+  })
+}
+
+function homePageWithoutButton(){
+  h1.addEventListener("click", function(){
+    clearWindowContent();
+  })
+} //end
+homePageWithoutButton()
+
+
+function clearWindowContent(){
+  teamsDiv.innerHTML = ""
+} //end
+
+// end of #3 Deliverable//
 
 //#4 Deliverable: Has_many relationship =>  team has many players
 
@@ -159,6 +193,13 @@ function viewPlayersForTeam(teamObj, teamCard){
       teamCard.appendChild(playersForTeam)
     })
   })
+  returnButton.innerHTML = "Return To Home"
+  returnButton.classList.add("nav-button")
+  teamCard.appendChild(returnButton)
+  returnButton.addEventListener("click", function(){
+    returnToHomePage()
+  })
+
 } //end of function
 
 // end of #4 Deliverable//
@@ -212,7 +253,9 @@ function renderForm(){
       flipCard.appendChild(newTeamForm);
       newTeamForm.addEventListener("submit", function(e){
             createNewPlayer(e)
+
       })
+      clearTryDiv()
   })
 } //end of renderForm function
 renderForm()
